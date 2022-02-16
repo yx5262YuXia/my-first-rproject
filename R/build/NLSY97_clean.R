@@ -18,7 +18,7 @@ library(stargazer)
 library(snakecase)
 library(dplyr)
 library(ggplot2)
-read_csv(here("my-first-rproject/data/NLSY97_raw.csv")) %>%
+read_csv(here("data/NLSY97_raw.csv")) %>%
   mutate(across(starts_with("E"), ~case_when(
     .x < 0   ~ NA_real_,
     .x == 99 ~ NA_real_,
@@ -39,4 +39,4 @@ read_csv(here("my-first-rproject/data/NLSY97_raw.csv")) %>%
   
   select(race, gender, total_incarcerations) %>%
   
-  write_csv(here("my-first-rproject/data/NLSY97_clean.csv"))
+  write_csv(here("data/NLSY97_clean.csv"))
