@@ -33,36 +33,53 @@
 % set the author, title, and date of the document. \maketitle adds it to the document.
 \author{Yu Xia}
 \title{My Paper on NLSY97 Data}
-\date{Sping 2022}
+\date{Spring 2022}
 
 \begin{document}
 \maketitle
 
 \section{Introduction}
 
-This paper talks about incarceration status of different gender and race. In order to examine the difference between different categories, this paper use the data provided by National Longitudinal Survey. I choose NLSY97, which interviewed many American youth in 1997. There are many information about education, employment, marrraige, etc. This paper focuses on the incarceration status in the year 2002.
+This paper talks about incarceration status of different gender and race. In order to examine the difference between different categories, this paper uses the data provided by the National Longitudinal Survey. I chose NLSY97, which interviewed many American youth in 1997. There is a lot of information about education, employment, marriage, etc. This paper focuses on the incarceration status in the year 2002.
 
-Firstly, I filter out wrong data. Incarceration data of pervious months are dropped as well. Thus, all incarceration I'm looking at happened in 2002. Thereafter, I categorise the data by race and gender, according to the original data. Meanwhile, I  take the sum of each person's incarceration variable. It shows how many months this person spent incarcerated. For example, If the sum is 9, this person spent 9 months incarcerated. Then I take the mean time of incarceration by each group. As shown below, this paper compare different catefories by figure, simple econometrics model and tables. 
+Firstly, I filter out wrong data. Incarceration data of previous months are dropped as well. Thus, all incarceration I'm looking at happened in 2002. Thereafter, I categorise the data by race and gender, according to the original data. Meanwhile, I  take the sum of each person's incarceration variable. It shows how many months this person spent incarcerated. For example, If the sum is 9, this person spent 9 months incarcerated. Then I take the mean time of incarceration by each group. As shown below, this paper compares different categories by figure, simple econometric model and tables. 
+
+The econometric model used in this paper is:
+$$
+    Incarceration = Hispanic\beta_1 + Mixed Race\beta_2 + Non Black And Non Hispanic\beta_3 + Male\beta_4 + \varepsilon
+$$
+
+where \textit{Incarceration} means average incarceration time in the year 2002, \textit{MixedRace} is the binary variable of whether or not the person is non-hispanic mixed race, \textit{NonBlackAndNonHispanic} is the binary of whether or not this person is neither black nor hispanic, \textit{Male} stands for the binary variable for sex. 
 
 \newpage
 
 \section{Interpretation}
 
-Wherein we do tables and graphs. To include the graph we made in ggplot, we create the \texttt{figure} environment. The `H' option tells LaTeX to `hold' the position of the figure instead of positioning it somewhere else. I use the \texttt{caption} command to add a caption{\textemdash}although I also put a title on the plot in ggplot so you would typically choose one or the other. I use the \texttt{label} command after the caption to add a label. Then in my paper I can use the \texttt{ref} command and LaTeX knows I am referring to Figure \ref{fig:graph}.
+The figure below shows the mean incarceration time of different gender and sex. 
+
+In this data, none of mixed race (non-hispanic) male were incarcerated in 2002. So the mean incarceration time for them is 0. For all other races, the mean incarceration time for male is higher than for females. 
+
+From the perspective of comparing races, black male have a very long incarceration time on average, but black females' time is relatively low. Mixed race non-hispanic females have a pretty long incarceration time on average. The rank of male's mean incarceration time is different from female, showing that there are some other factors affecting the incarceration time. But it is beyond the scope of the paper.
 
 
 \begin{figure}[H]
     \begin{center}
         \includegraphics[width=.85\textwidth]{incarcerations_by_racegender}
     \end{center}
-    \caption{Mean Number of Incarcerations in 2002 by Race and Gender (this is the LaTeX caption, not the ggplot title)}
+    \caption{Mean Time of Incarceration in 2002 by Race and Gender}
     \label{fig:graph}
 \end{figure}
 
 
-Tables are somewhat easier, since \texttt{kableExtra} and \texttt{stargazer} generate LaTeX code that is ready to just ``copy-paste'' into our document. The \texttt{label} argument in the R code is the label that the table will have in the tex output, if you want to \texttt{ref} it.
-
 \input{../tables/incarcerations_by_racegender.tex}
+
+Table 1 shows the mean incarceration time categorised by race and gender. Comparing different categories shows the same result as Figure 1. However, these numbers can be given meaning in reality. For example, the mean incarceration time for black females, in this data set, is about 0.02 month. Other categories have similar intuition. These numbers are pretty small, it is because only a little part of interviewee were incarcerated in 2002. But these numbers can still be used for comparison, just like above.
+
+Table 2 shows the regression result of a simple metrics model. 
+
+The coefficient of "Mixed Race (Non-Hispanic)" is significant at 0.1 level, and all other coefficients are significant at 0.01 level. 
+
+These coefficients can provide us with some intuition. Take the coefficient of Hispanic as an example. -0.149 means that holding all else equal, compared with Black Females, the Hispanic Females spent 0.149 month less in incarceration in expectation. For Hispanic Males, holding all else equal, they spent -0.149+0.183=0.034 more months incarcerated in expectation. Here's what the coefficient of "Male" stands for. Other categories can be interpreted accordingly.
 
 \input{../tables/regress_incarcerations_by_racegender.tex}
 
